@@ -1,7 +1,15 @@
-package main // mainパッケージであることを宣言
+package main
 
-import "fmt" // fmtモジュールをインポート
+import (
+	"fmt"
+	"net/http"
+)
 
-func main() { // 最初に実行されるmain()関数を定義
-	fmt.Println("hello, world")
+func handler(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Hello, World")
+}
+
+func main() {
+	http.HandleFunc("/", handler) // ハンドラを登録してウェブページを表示させる
+	http.ListenAndServe(":8080", nil)
 }
